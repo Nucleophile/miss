@@ -1,0 +1,8 @@
+.main-slider {
+    list-style: none;
+}
+
+.slide-miss {
+    @include retina-background("./images/main-slider/miss", "jpg");
+    background-size: cover;
+}
