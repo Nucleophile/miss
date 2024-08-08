@@ -1,5 +1,5 @@
-@mixin retina-background($url, $file-type, $repeat: no-repeat, $position: center, $ratio: 1.5, $suffix: "@2x") {
-  background: url($url + "." + $file-type) $position $repeat;
+@mixin retina-background($url, $file-type, $ratio: 1.5, $suffix: "@2x") {
+  background-image: url($url + "." + $file-type);
 
   @media only screen and (-webkit-min-device-pixel-ratio: $ratio),
       only screen and (min--moz-device-pixel-ratio: $ratio),

@@ -1,8 +1,20 @@
 .main-slider {
-    list-style: none;
+  list-style: none;
 }
 
-.slide-miss {
-    @include retina-background("./images/main-slider/miss", "jpg");
+.slide-presentation {
+  min-height: 100vh;
+  padding: $header-social-size + 2 * $header-padding-y 0 $header-padding-y;
+  display: flex;
+
+  .main-slider__slide & {
+    background-repeat: no-repeat;
+    background-position: center;
     background-size: cover;
+    background-attachment: fixed;
+  }
+  
+  .slide-miss & {
+    @include retina-background("./images/main-slider/miss", "jpg");
+  }
 }
