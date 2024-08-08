@@ -4,6 +4,7 @@ const HtmlWebpackPlugin = require("html-webpack-plugin");
 const HtmlWebpackInlineSVGPlugin = require("html-webpack-inline-svg-plugin");
 const MiniCssExtractPlugin = require("mini-css-extract-plugin");
 const svgToMiniDataURI = require("mini-svg-data-uri");
+const Pug = require("pug");
 
 module.exports = {
   entry: {
@@ -16,7 +17,7 @@ module.exports = {
   },
   plugins: [
     new HtmlWebpackPlugin({
-      template: "src/index.html"
+      template: "src/index.pug"
     }),
     new HtmlWebpackInlineSVGPlugin({
       inlineAll: true
@@ -31,8 +32,15 @@ module.exports = {
   module: {
     rules: [
       {
-        test: /\.html$/i,
-        loader: "html-loader"
+        test: /\.pug$/i,
+        loader: "html-loader",
+        options: {
+          preprocessor: (content) => {
+            return Pug.compile(content, {
+              basedir: path.resolve(__dirname, "src")
+            })();
+          }
+        }
       },
       {
         test: /\.s[ac]ss$/i,

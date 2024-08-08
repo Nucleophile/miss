@@ -1,0 +1,40 @@
+doctype html
+html(lang="en")
+  head
+    meta(charset='UTF-8')
+    meta(name="viewport" content="width=device-width, initial-scale=1.0")
+    title Miss Dukascopy
+  body
+    header.header
+      .container-fluid
+        .header__content
+          .header__socials
+            p Share Us:
+            ul.header__socials-list
+              each val in ["vk", "fb", "twitter"]
+                li
+                  a(href="")
+                    img(src="./images/svg/" + val + "-header.svg")
+          .header-langs
+            button.dropdown-toggle ENG
+            ul.dropdown-menu.header-langs__list
+              each val in ["УКР", "中文"]
+                li: a(href="")= val
+    main
+      ul.main-slider
+        li.main-slider__slide.slide-miss
+          .slide-presentation
+            .slide-presentation__wrapper
+              .container-fluid
+                .slide-presentation__content
+                  h1 Miss Dukascopy
+                  p The place where girls reveal themselves
+          .slide-content
+            .container
+             p The old Cinderella story? Boring! A new Cinderella story about you? Now, that’s cool! The most fashionable and world-renowned brands sponsoring Miss Dukascopy have already prepared a host of giftsе for you.
+        <li class="main-slider__slide slide-blogger">
+          <div class="container-fluid">
+            <h1>The place where girls reveal themselves</h1>
+            <p>Miss Dukascopy</p>
+          </div>
+        </li>
