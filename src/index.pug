@@ -4,6 +4,8 @@ html(lang="en")
     meta(charset='UTF-8')
     meta(name="viewport" content="width=device-width, initial-scale=1.0")
     title Miss Dukascopy
+    link(href="styles.scss" rel="stylesheet")
+    script(src="index.js" defer="defer")
   body
     header.header
       .container-fluid
@@ -14,7 +16,7 @@ html(lang="en")
               each val in ["vk", "fb", "twitter"]
                 li
                   a(href="")
-                    img(src="./images/svg/" + val + "-header.svg")
+                    img(src="./images/svg/" + val + "-header.svg?inline")
           .header-langs
             button.dropdown-toggle ENG
             ul.dropdown-menu.header-langs__list
@@ -22,19 +24,18 @@ html(lang="en")
                 li: a(href="")= val
     main
       ul.main-slider
-        li.main-slider__slide.slide-miss
-          .slide-presentation
-            .slide-presentation__wrapper
-              .container-fluid
-                .slide-presentation__content
-                  h1 Miss Dukascopy
-                  p The place where girls reveal themselves
-          .slide-content
+        include templates/mixins/slide
+        +slide("miss")
+          +Slot("presentation")
+            h1 Miss Dukascopy
+            p The place where girls reveal themselves
+          +Slot("content")
             .container
-             p The old Cinderella story? Boring! A new Cinderella story about you? Now, that’s cool! The most fashionable and world-renowned brands sponsoring Miss Dukascopy have already prepared a host of giftsе for you.
-        <li class="main-slider__slide slide-blogger">
-          <div class="container-fluid">
-            <h1>The place where girls reveal themselves</h1>
-            <p>Miss Dukascopy</p>
-          </div>
-        </li>
+              p The old Cinderella story? Boring! A new Cinderella story about you? Now, that's cool! The most fashionable and world-renowned brands sponsoring Miss Dukascopy have already prepared a host of gifts for you.
+        +slide("blogger")
+          +Slot("presentation")
+            h1 Blogger
+            p gdfgdfg
+          +Slot("content")
+            .container
+              p fdgdfgk
