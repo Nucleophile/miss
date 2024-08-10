@@ -1,0 +1,10 @@
+footer.footer
+  .container
+    h3.footer__heading We are in socail media:
+    ul.footer__socials-list
+      each val in ["instagram", "vk", "fb", "twitter", "youtube"]
+        li
+          a.footer__social(href="")
+            img(src="./images/svg/" + val + "-footer.svg?inline")
+    p © 1998-2016 
+      a.footer__copyrights-link(href="") Dukascopy® Bank SA

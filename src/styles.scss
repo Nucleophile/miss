@@ -1,7 +1,9 @@
-@use "styles/fonts.css";
+@import "styles/fonts.css";
 @import "styles/variables";
 @import "styles/mixins";
 @import "styles/grid";
 @import "styles/general";
+@import "styles/buttons";
 @import "styles/header";
+@import "styles/footer";
 @import "styles/main-slider";

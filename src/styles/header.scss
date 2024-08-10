@@ -1,16 +1,42 @@
 .header {
-  position: absolute;
+  position: fixed;
+  z-index: 2;
   width: 100%;
   padding: $header-padding-y 50px;
+  color: #fff;
 
   &__content {
     display: flex;
     justify-content: space-between;
   }
 
+  &__socials {
+    display: flex;
+    align-items: center;
+    gap: 35px;
+  }
+
   &__socials-list {
     list-style: none;
     display: flex;
+    gap: 15px;
+  }
+
+  &__social {
+    width: 68px;
+    height: 68px;
+    border-radius: 68px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #fff;
+    transition-property: background-color, color;
+    transition-duration: $trans-dur;
+
+    &:hover {
+      background: #fff;
+      color: $black;
+    }
   }
 }
 

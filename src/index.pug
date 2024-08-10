@@ -7,35 +7,35 @@ html(lang="en")
     link(href="styles.scss" rel="stylesheet")
     script(src="index.js" defer="defer")
   body
-    header.header
-      .container-fluid
-        .header__content
-          .header__socials
-            p Share Us:
-            ul.header__socials-list
-              each val in ["vk", "fb", "twitter"]
-                li
-                  a(href="")
-                    img(src="./images/svg/" + val + "-header.svg?inline")
-          .header-langs
-            button.dropdown-toggle ENG
-            ul.dropdown-menu.header-langs__list
-              each val in ["УКР", "中文"]
-                li: a(href="")= val
+    include templates/header
     main
-      ul.main-slider
-        include templates/mixins/slide
-        +slide("miss")
-          +Slot("presentation")
-            h1 Miss Dukascopy
-            p The place where girls reveal themselves
-          +Slot("content")
-            .container
-              p The old Cinderella story? Boring! A new Cinderella story about you? Now, that's cool! The most fashionable and world-renowned brands sponsoring Miss Dukascopy have already prepared a host of gifts for you.
-        +slide("blogger")
-          +Slot("presentation")
-            h1 Blogger
-            p gdfgdfg
-          +Slot("content")
-            .container
-              p fdgdfgk
+      .main-slider#main-slider
+        ul.main-slider__list
+          include templates/mixins/slide
+          include templates/mixins/slide-presentation
+          +slide("miss")
+            +Slot("presentation")
+              +slide-presentation("Miss Dukascopy", "The place where girls reveal themselves")
+              ul.slide-presentation__links-list
+                li
+                  a.btn.btn-simple(href="") About
+                li
+                  a.btn.btn-simple(href="") See Gallery
+                li
+                  a.btn.btn-simple(href="") Prizes
+                li
+                  a.btn.btn-accent(href="") Registration
+            +Slot("content")
+              .container
+                p The old Cinderella story? Boring! A new Cinderella story about you? Now, that's cool! The most fashionable and world-renowned brands sponsoring Miss Dukascopy have already prepared a host of gifts for you.
+          +slide("blogger")
+            +Slot("presentation")
+              h1.heading Blogger
+              p gdfgdfg
+            +Slot("content")
+              .container
+                p fdgdfgk
+        .main-slider__controls
+          button.main-slider__control.main-slider__prev
+          button.main-slider__control.main-slider__next
+    include templates/footer

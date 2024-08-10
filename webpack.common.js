@@ -1,6 +1,5 @@
 const path = require("path");
 const webpack = require("webpack");
-const svgToMiniDataURI = require("mini-svg-data-uri");
 const HtmlBundlerPlugin = require('html-bundler-webpack-plugin');
 
 module.exports = {

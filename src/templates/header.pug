@@ -1,0 +1,15 @@
+header.header
+  .container-fluid
+    .header__content
+      .header__socials
+        p Share Us:
+        ul.header__socials-list
+          each val in ["vk", "fb", "twitter"]
+            li
+              a.header__social(href="")
+                img(src="./images/svg/" + val + "-header.svg?inline")
+      .header-langs
+        button.dropdown-toggle ENG
+        ul.dropdown-menu.header-langs__list
+          each val in ["УКР", "中文"]
+            li: a(href="")= val

@@ -3,9 +3,11 @@ mixin slide(name)
   mixin Slot(key)
     - slots[key] = block
   - block()
-  li(class="main-slider__slide slide-" + name + ((name == "miss") ? " slide-active" : ""))
+  li(class="main-slider__slide slide-" + name + ((name == "miss") ? " slide--active" : ""))
     .slide-presentation
       .slide-presentation__wrapper
+        - for (var x = 0; x < 4; x++)
+          .slide-presentation__fragment
         .container-fluid
           .slide-presentation__content
             - slots.presentation()

@@ -1,0 +1,53 @@
+.footer {
+  font-size: 24px;
+  position: relative;
+  z-index: 1;
+  text-align: center;
+  padding: 50px 0;
+  color: $on-black-content;
+  background: $black;
+
+  &__heading {
+    font-size: 24px;
+    font-weight: 300;
+  }
+
+  &__socials-list {
+    list-style: none;
+    display: flex;
+    justify-content: center;
+    gap: 60px;
+    margin: 50px 0;
+  }
+
+  &__social {
+    width: 96px;
+    height: 96px;
+    border-radius: 96px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #fff;
+    background: $on-black-content;
+    transition-property: color, background-color;
+    transition-duration: $trans-dur;
+
+    &:hover {
+      color: $on-black-content;
+      background: #fff;
+    }
+  }
+
+  &__copyrights-link {
+    color: inherit;
+    text-decoration: underline;
+    text-decoration-color: transparent;
+    transition-property: color, text-decoration-color;
+    transition-duration: $trans-dur;
+
+    &:hover {
+      color: #fff;
+      text-decoration-color: currentColor;
+    }
+  }
+}
