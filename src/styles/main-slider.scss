@@ -62,6 +62,8 @@
     top: 0;
     left: 0;
     width: 100%;
+    opacity: 0;
+    transition: opacity $trans-dur;
   }
 }
 
@@ -78,14 +80,19 @@
     font-weight: 400;
     letter-spacing: 0.1em;
   }
+}
 
-  &--active {
-    position: relative;
-    z-index: 1;
+.js-slide--active {
+  position: relative;
+  z-index: 1;
+  opacity: 1;
 
-    .slide-content {
-      display: block;
-    }
+  .slide-presentation__fragment {
+    box-shadow: 0 0 28px #000;
+  }
+
+  .slide-content {
+    display: block;
   }
 }
 
@@ -118,6 +125,7 @@
     padding: $header-social-size + 2 * $header-padding-y 0 $header-padding-y;
     color: #fff;
     text-align: center;
+    perspective: 200px;
 
     .main-slider__slide & {
       background-repeat: no-repeat;
@@ -129,8 +137,9 @@
 
   &__fragment {
     position: absolute;
-    width: 25%;
-    height: 25%;
+    background-repeat: no-repeat;
+    transition-property: transform, box-shadow;
+    transition-duration: $trans-dur;
   }
 
   &__content {

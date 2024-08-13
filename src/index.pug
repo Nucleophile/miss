@@ -10,7 +10,7 @@ html(lang="en")
     include templates/header
     main
       .main-slider#main-slider
-        ul.main-slider__list
+        ul.main-slider__list#main-slider__list
           include templates/mixins/slide
           include templates/mixins/slide-presentation
           +slide("miss")
@@ -30,12 +30,11 @@ html(lang="en")
                 p The old Cinderella story? Boring! A new Cinderella story about you? Now, that's cool! The most fashionable and world-renowned brands sponsoring Miss Dukascopy have already prepared a host of gifts for you.
           +slide("blogger")
             +Slot("presentation")
-              h1.heading Blogger
-              p gdfgdfg
+              +slide-presentation("Blogger", "The place where girls reveal themselves")
             +Slot("content")
               .container
                 p fdgdfgk
         .main-slider__controls
-          button.main-slider__control.main-slider__prev
-          button.main-slider__control.main-slider__next
+          button.main-slider__control.main-slider__prev#js-slider-prev
+          button.main-slider__control.main-slider__next#js-slider-next
     include templates/footer
