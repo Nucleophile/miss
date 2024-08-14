@@ -1,65 +1,56 @@
 import $ from "jquery";
 
 export default class SliderFragment {
-  constructor($fragment, index) {
+  constructor($fragment, index, isActive) {
     this.$fragment = $fragment;
     this.index = index; // 0 - left top; 1 - right top, 2 - left-bottom, 3 - right bottom
-    this.calculateFragment();
+    this.$window = $(window);
+
+    isActive && this.calculateFragment();
+    this.$window.on("resize", () => this.isActive && this.calculateFragment());
   }
 
   calculateFragment() {
-    let windowWidth = $(window).width();
-    let windowHeight = $(window).height();
+    this.isActive = true;
+    let windowWidth = this.$window.width();
+    let windowHeight = this.$window.height();
     let horizontalRatio = windowWidth / windowHeight > 1.6; // 1.6 = 1920 / 1200 - background images dimentions
-    const positions = {};
-    let backgroundPosition,
-        positionLeft,
-        positionTop,
-        positionRight,
-        positionBottom;
+    const fragmentWidth = getRandomInt(.4 * windowWidth, .6 * windowWidth);
+    const fragmentHeight = getRandomInt(.4 * windowHeight, .6 * windowHeight);
+    let top, left;
 
     switch (this.index) {
       case 0:
-        positionLeft = getRandomInt(0, 0.2 * windowWidth);
-        positionTop = getRandomInt(0, 0.2 * windowHeight);
-        positions.left = positionLeft + "px";
-        positions.top = positionTop + "px";
-        backgroundPosition = horizontalRatio
-          ? // Then image was cut from top and bottom, so we compensate it with (windowWidth / 1.6 - windowHeight) / 2 term. Other terms are just compensation of top and left shifts
-            `-${positionLeft}px -${(windowWidth / 1.6 - windowHeight) / 2 + positionTop}px`
-          : // Then image was cut from left and right, so we additionally compensate it with 1.6 * windowHeight - windowWidth) / 2 term. Other terms are just compensation of top and left shifts
-            `-${(1.6 * windowHeight - windowWidth) / 2 + positionLeft}px -${positionTop}px`;
+        top = getRandomInt(0, 0.3 * (windowHeight - fragmentHeight));
+        left = getRandomInt(0, 0.3 * (windowWidth - fragmentWidth));
         break;
       case 1:
-        positionRight = getRandomInt(0, 0.2 * windowWidth);
-        positionTop = getRandomInt(0, 0.2 * windowHeight);
-        positions.right = positionRight + "px";
-        positions.top = positionTop + "px";
-        // See case 0 for explanation
-        backgroundPosition = horizontalRatio ? `right -${positionRight}px top -${(windowWidth / 1.6 - windowHeight) / 2 + positionTop}px` : `right -${(1.6 * windowHeight - windowWidth) / 2 + positionRight}px top -${positionTop}px`;
+        top = getRandomInt(0, 0.3 * (windowHeight - fragmentHeight));
+        left = getRandomInt(0.7 * (windowWidth - fragmentWidth), windowWidth - fragmentWidth);
         break;
       case 2:
-        positionLeft = getRandomInt(0, 0.2 * windowWidth);
-        positionBottom = getRandomInt(0, 0.2 * windowHeight);
-        positions.left = positionLeft + "px";
-        positions.bottom = positionBottom + "px";
-        backgroundPosition = horizontalRatio ? `left -${positionLeft}px bottom -${(windowWidth / 1.6 - windowHeight) / 2 + positionBottom}px` : `left -${(1.6 * windowHeight - windowWidth) / 2 + positionLeft}px bottom -${positionBottom}px`;
+        top = getRandomInt(0.7 * (windowHeight - fragmentHeight), windowHeight - fragmentHeight);
+        left = getRandomInt(0, 0.3 * (windowWidth - fragmentWidth));
         break;
       case 3:
-        positionRight = getRandomInt(0, 0.2 * windowWidth);
-        positionBottom = getRandomInt(0, 0.2 * windowHeight);
-        positions.right = positionRight + "px";
-        positions.bottom = positionBottom + "px";
-        backgroundPosition = horizontalRatio ? `right -${positionRight}px bottom -${(windowWidth / 1.6 - windowHeight) / 2 + positionBottom}px` : `right -${(1.6 * windowHeight - windowWidth) / 2 + positionRight}px bottom -${positionBottom}px`;
+        top = getRandomInt(0.7 * (windowHeight - fragmentHeight), windowHeight - fragmentHeight);
+        left = getRandomInt(0.7 * (windowWidth - fragmentWidth), windowWidth - fragmentWidth);
     }
 
     this.$fragment.css({
-      width: getRandomInt(20, 60) + "%",
-      height: getRandomInt(40, 60) + "%",
+      width: fragmentWidth + "px",
+      height: fragmentHeight + "px",
+      top,
+      left,
       zIndex: getRandomInt(-4, 0),
       backgroundSize: horizontalRatio ? windowWidth + "px" : "auto " + windowHeight + "px",
-      backgroundPosition: backgroundPosition,
-      ...positions
+      backgroundPosition: horizontalRatio
+        ? // Then image was cut from top and bottom, so we compensate it with (windowWidth / 1.6 - windowHeight) / 2 term. Other terms are just compensation of top and left shifts
+          `-${left}px -${(windowWidth / 1.6 - windowHeight) / 2 + top}px`
+        : // Then image was cut from left and right, so we additionally compensate it with 1.6 * windowHeight - windowWidth) / 2 term. Other terms are just compensation of top and left shifts
+          `-${(1.6 * windowHeight - windowWidth) / 2 + left}px -${top}px`,
+      transform: `translate3D(0, 0, ${getRandomInt(25, 75)}px)`,
+      boxShadow: "0 0 28px #000"
     });
 
     function getRandomInt(min, max) {
@@ -67,5 +58,17 @@ export default class SliderFragment {
       const maxFloored = Math.floor(max);
       return Math.floor(Math.random() * (maxFloored - minCeiled) + minCeiled);
     }
+  }
+
+  animateFragment() {
+    
+  }
+
+  clearFragment() {
+    this.$fragment.css({
+      transform: "translate3d(0, 0, 0)",
+      boxShadow: "none"
+    });
+    this.isActive = false;
   }
 }

@@ -6,6 +6,11 @@
   padding: 0;
 }
 
+:root {
+  --main-slider-opacity-trans-dur: #{$main-slider-opacity-trans-dur};
+  --main-slider-trans-dur: #{$main-slider-trans-dur};
+}
+
 body {
   font-family: "Proxima Nova", sans-serif;
   font-weight: 300;
