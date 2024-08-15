@@ -34,11 +34,10 @@ html(lang="en")
             +Slot("content")
               .container
                 p fdgdfgk
-        .main-slider__controls.js-hidden-on-scroll
-          button.main-slider__control.main-slider__prev#slider-prev
-            img(src="./images/svg/arrow-left-big.svg?inline")
-          button.main-slider__control.main-slider__next#slider-next
-            img(src="./images/svg/arrow-right-big.svg?inline")
-          button.main-slider__control.main-slider__scroll-down#slider-scroll-down
-            img(src="./images/svg/scroll-down.svg?inline")
+        button.main-slider__control.main-slider__prev.js-hidden-on-scroll#slider-prev
+          img(src="./images/svg/arrow-left-big.svg?inline")
+        button.main-slider__control.main-slider__next.js-hidden-on-scroll#slider-next
+          img(src="./images/svg/arrow-right-big.svg?inline")
+        button.main-slider__control.main-slider__scroll-down.js-hidden-on-scroll#slider-scroll-down
+          img(src="./images/svg/scroll-down.svg?inline")
     include templates/footer
