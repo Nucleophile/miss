@@ -1,19 +1,20 @@
 import $ from "jquery";
 
 export default class SliderFragment {
-  constructor($fragment, index, isSlideActive) {
+  constructor($fragment, index, isSlideActive, windowParams) {
     this.$fragment = $fragment;
     this.index = index; // 0 - left top; 1 - right top, 2 - left-bottom, 3 - right bottom
-    this.$window = $(window);
+    // this.$window = $(window);
+    this.windowParams = windowParams;
 
     isSlideActive && this.startAnimation();
-    this.$window.on("resize", () => this.isActive && this.updateFragment());
+    // this.$window.on("resize", () => this.isActive && this.updateFragment());
   }
 
   calculateFragment() {
-    let windowWidth = this.$window.width();
-    let windowHeight = this.$window.height();
-    let horizontalRatio = windowWidth / windowHeight > 1.6; // 1.6 = 1920 / 1200 - background images dimentions
+    const windowWidth = this.windowParams.windowWidth;
+    const windowHeight = this.windowParams.windowHeight;
+    const horizontalRatio = windowWidth / windowHeight > 1.6; // 1.6 = 1920 / 1200 - background images dimentions
     const fragmentWidth = this.getRandomInt(.4 * windowWidth, .6 * windowWidth);
     const fragmentHeight = this.getRandomInt(.4 * windowHeight, .6 * windowHeight);
     let top, left;
@@ -66,12 +67,12 @@ export default class SliderFragment {
     });
   }
 
-  clearFragment() {
+  clearFragment(slideIsChanged) {
     this.$fragment.css({
       transform: "translate3d(0, 0, 0)",
       boxShadow: "none"
     });
-    this.isActive = false;
+    if (slideIsChanged) this.isActive = false;
   }
 
   updateFragment() {

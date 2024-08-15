@@ -5,7 +5,7 @@ mixin slide(name)
   - block()
   li(class="main-slider__slide js-slide slide-" + name + ((name == "miss") ? " js-slide--active" : ""))
     .slide-presentation
-      .slide-presentation__wrapper
+      .slide-presentation__wrapper.js-slide-presentation-to-scroll
         - for (var x = 0; x < 4; x++)
           .slide-presentation__fragment.js-slide-fragment
         .container-fluid

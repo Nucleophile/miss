@@ -3,7 +3,14 @@ import Slide from "./Slide.js";
 
 export default class Slider {
   constructor($slider) {
+    const $window = $(window);
+    const $document = $(document);
     const $html = $("html");
+    const $body = $("body");
+    const windowParams = {
+      windowWidth: $window.width(),
+      windowHeight: $window.height()
+    };
     this.$slider = $slider;
     this.currentSlideNumber = 0;
     this.opacityTransitionDuration = parseFloat($html.css("--main-slider-opacity-trans-dur"));
@@ -11,16 +18,45 @@ export default class Slider {
     this.isOpacityTransitioning = false;
     this.slides = $slider
       .find(".js-slide")
-      .map((index, el) => new Slide($(el), index === this.currentSlideNumber))
+      .map((index, el) => new Slide($(el), index === this.currentSlideNumber, windowParams))
       .get();
+    const $slidesHeadings = this.$slider.find(".js-slide__heading");
+    this.slidesScrollStartPos = getSlidesScrollStartPos();
+    this.slidePresentationToScroll = this.$slider.find(".js-slide-presentation-to-scroll");
 
-    this.autoplay();
+    this.autoPlay();
 
-    $slider.find("#js-slider-prev").on("click", () => {
+    $document.on("scroll", () => {
+      const scrollTop = $window.scrollTop();
+
+      if (scrollTop > 0) {
+        $body.addClass("js-body--scrolled");
+        this.stopPlaying();
+
+        if (scrollTop > this.slidesScrollStartPos[this.currentSlideNumber]) {
+          this.slidePresentationToScroll.eq(this.currentSlideNumber).css("top", this.slidesScrollStartPos[this.currentSlideNumber] - scrollTop + "px");
+        } else {
+          this.slidePresentationToScroll.eq(this.currentSlideNumber).css("top", "0px");
+        }
+      } else {
+        $body.removeClass("js-body--scrolled");
+        this.slidePresentationToScroll.eq(this.currentSlideNumber).css("top", "0px"); // If scroll fast (e. g. press "Home" key) some top value is still remain
+        this.startPlaying();
+      }
+    });
+
+    $window.on("resize", () => {
+      windowParams.windowWidth = $window.width();
+      windowParams.windowHeight = $window.height();
+      this.slideHeadingsBottomPos = getSlidesScrollStartPos();
+      this.slides[this.currentSlideNumber].fragments.forEach((fragment) => fragment.updateFragment());
+    });
+
+    $slider.find("#slider-prev").on("click", () => {
       sliderControlClickHandler.call(this, this.prevSlide.bind(this));
     });
 
-    $slider.find("#js-slider-next").on("click", () => {
+    $slider.find("#slider-next").on("click", () => {
       sliderControlClickHandler.call(this, this.nextSlide.bind(this));
     });
 
@@ -31,9 +67,22 @@ export default class Slider {
         this.blockControls();
       }
     }
+
+    function getSlidesScrollStartPos() {
+      return $slidesHeadings
+        .map((index, el) => {
+          const $el = $(el);
+          return windowParams.windowHeight - ($el.offset().top + $el.height()) + $window.scrollTop(); // $window.scrollTop() is required for page refresh
+        })
+        .get();
+    }
+
+    // $window.on('beforeunload', function(){
+    //   $window.scrollTop(0);
+    // });
   }
 
-  autoplay() {
+  autoPlay() {
     this.autoplayTimeoutId = setTimeout(() => {
       this.nextSlide();
     }, (this.transitionDuration + this.opacityTransitionDuration) * 1000);
@@ -61,11 +110,21 @@ export default class Slider {
   moveToSlide(slideNumber, prevSlideNumber) {
     this.slides[prevSlideNumber].deactivate();
     this.slides[slideNumber].activate();
-    this.autoplay();
+    this.autoPlay();
 
     if (!this.isOpacityTransitioning) {
       // Then we come here from autoplay and not from control click. So we need to block first click here. Otherwise, after quick click user could see not cleared previous slide
       this.blockControls();
     }
+  }
+
+  startPlaying() {
+    this.slides[this.currentSlideNumber].activateFragments();
+    this.autoPlay();
+  }
+
+  stopPlaying() {
+    clearTimeout(this.autoplayTimeoutId);
+    this.slides[this.currentSlideNumber].revertFragments();
   }
 }

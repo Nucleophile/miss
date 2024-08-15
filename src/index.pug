@@ -16,7 +16,7 @@ html(lang="en")
           +slide("miss")
             +Slot("presentation")
               +slide-presentation("Miss Dukascopy", "The place where girls reveal themselves")
-              ul.slide-presentation__links-list
+              ul.slide-presentation__links-list.js-hidden-on-scroll
                 li
                   a.btn.btn-simple(href="") About
                 li
@@ -30,11 +30,15 @@ html(lang="en")
                 p The old Cinderella story? Boring! A new Cinderella story about you? Now, that's cool! The most fashionable and world-renowned brands sponsoring Miss Dukascopy have already prepared a host of gifts for you.
           +slide("blogger")
             +Slot("presentation")
-              +slide-presentation("Blogger", "The place where girls reveal themselves")
+              +slide-presentation("Miss Blogger", "The place where girls reveal themselves")
             +Slot("content")
               .container
                 p fdgdfgk
-        .main-slider__controls
-          button.main-slider__control.main-slider__prev#js-slider-prev
-          button.main-slider__control.main-slider__next#js-slider-next
+        .main-slider__controls.js-hidden-on-scroll
+          button.main-slider__control.main-slider__prev#slider-prev
+            img(src="./images/svg/arrow-left-big.svg?inline")
+          button.main-slider__control.main-slider__next#slider-next
+            img(src="./images/svg/arrow-right-big.svg?inline")
+          button.main-slider__control.main-slider__scroll-down#slider-scroll-down
+            img(src="./images/svg/scroll-down.svg?inline")
     include templates/footer
