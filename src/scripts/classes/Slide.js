@@ -19,6 +19,6 @@ export default class Slide {
 
   activate() {
     this.$slide.addClass("js-slide--active");
-    this.fragments.forEach(fragment => fragment.calculateFragment());
+    this.fragments.forEach(fragment => fragment.startAnimation());
   }
 }
