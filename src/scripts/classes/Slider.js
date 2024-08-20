@@ -52,6 +52,10 @@ export default class Slider {
       this.slides[this.currentSlideNumber].fragments.forEach((fragment) => fragment.updateFragment());
     });
 
+    $slider.find("#slider-scroll-down").on("click", () => {
+      $html.animate({scrollTop: windowParams.windowHeight - 30}, 2000);
+    });
+
     $slider.find("#slider-prev").on("click", () => {
       sliderControlClickHandler.call(this, this.prevSlide.bind(this));
     });
@@ -70,16 +74,12 @@ export default class Slider {
 
     function getSlidesScrollStartPos() {
       return $slidesHeadings
-        .map((index, el) => {
+        .map((_index, el) => {
           const $el = $(el);
           return windowParams.windowHeight - ($el.offset().top + $el.height()) + $window.scrollTop(); // $window.scrollTop() is required for page refresh
         })
         .get();
     }
-
-    // $window.on('beforeunload', function(){
-    //   $window.scrollTop(0);
-    // });
   }
 
   autoPlay() {

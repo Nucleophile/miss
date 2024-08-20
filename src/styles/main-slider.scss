@@ -14,50 +14,33 @@
     position: fixed;
     bottom: 50%;
     z-index: 1;
-    width: $control-size;
-    height: $control-size;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    border-radius: 125px;
-    border: none;
-    cursor: pointer;
-    color: #fff;
-    background: none;
-    transition: background-color $trans-dur, color $trans-dur;
 
-    // &::before {
-    //   content: "";
-    //   display: block;
-    //   width: 50px;
-    //   height: 50px;
-    //   border-top: 3px solid #fff;
-    //   border-right: 3px solid #fff;
-    //   transition: border-color $trans-dur;
-    // }
+    &-btn {
+      width: $control-size;
+      height: $control-size;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      border-radius: 125px;
+      border: none;
+      cursor: pointer;
+      color: #fff;
+      background: none;
+      transition: background-color $trans-dur, color $trans-dur;
 
-    &:hover {
-      background: #fff;
-      color: $black;
-
-      // &::before {
-      //   border-color: $black;
-      // }
+      &:hover {
+        background: #fff;
+        color: $black;
+      }
     }
   }
 
   &__prev {
-    &::before {
-      transform: translateX(25%) scaleX(.7) rotate(-135deg);
-    }
+
   }
 
   &__next {
     right: 0;
-
-    &::before {
-      transform: translateX(-25%) scaleX(.7) rotate(45deg);
-    }
   }
 
   &__scroll-down {
@@ -78,12 +61,14 @@
 
 .js-hidden-on-scroll {
   opacity: 1;
-  transition: opacity $trans-dur;
+  transition-property: opacity, visibility;
+  transition-duration: $trans-dur;
 }
 
 .js-body--scrolled {
   .js-hidden-on-scroll {
     opacity: 0;
+    visibility: hidden;
   }
 
   .js-slide--active {
