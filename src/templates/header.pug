@@ -8,8 +8,8 @@ header.header.js-hidden-on-scroll
             li
               a.header__social(href="")
                 img(src="./images/svg/" + val + "-header.svg?inline")
-      .header-langs
-        button.dropdown-toggle ENG
-        ul.dropdown-menu.header-langs__list
+      .js-dropdown.header-langs
+        button.header-langs__btn.js-dropdown__toggle ENG
+        ul.dropdown__menu.header-langs__list
           each val in ["УКР", "中文"]
-            li: a(href="")= val
+            li: a.header-langs__link(href="")= val

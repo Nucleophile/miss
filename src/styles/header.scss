@@ -1,4 +1,7 @@
 .header {
+  font-size: 24px;
+  line-height: 36px;
+  font-weight: 400;
   position: fixed;
   z-index: 2;
   width: 100%;
@@ -8,6 +11,7 @@
   &__content {
     display: flex;
     justify-content: space-between;
+    align-items: center;
   }
 
   &__socials {
@@ -40,6 +44,47 @@
   }
 }
 
-.header-langs__list {
-  list-style: none;
+.header-langs {
+  &__list {
+    list-style: none;
+    margin-top: 8px;
+  }
+
+  &__btn {
+    position: relative;
+    font-size: inherit;
+    line-height: inherit;
+    color: inherit;
+    padding: 0 45px;
+    border: none;
+    background: none;
+
+    &::after {
+      content: '';
+      position: absolute;
+      right: 18px;
+      top: 50%;
+      margin-top: -3px;
+      border-top: 6px solid #fff;
+      border-left: 6px solid transparent;
+      border-right: 6px solid transparent;
+    }
+  }
+
+  &__link {
+    display: block;
+    padding: 8px 45px;
+    border-radius: 52px;
+    margin-bottom: 8px;
+    text-decoration: none;
+    text-wrap: nowrap; // because of chinese
+    color: inherit;
+    transition-property: color, background-color;
+    transition-duration: $trans-dur;
+
+    &:hover {
+      background: #fff;
+      color: $black;
+    }
+  }
 }

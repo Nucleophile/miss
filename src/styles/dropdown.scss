@@ -1,0 +1,23 @@
+.js-dropdown {
+  position: relative;
+
+  &.js-is-shown {
+    .dropdown__menu {
+      visibility: visible;
+      opacity: 1;
+    }
+  }
+
+  &__toggle {
+    cursor: pointer;
+  }
+}
+
+.dropdown__menu {
+  position: absolute;
+  top: 100%;
+  visibility: hidden;
+  opacity: 0;
+  transition-property: visibility, opacity;
+  transition-duration: $trans-dur;
+}
