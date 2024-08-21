@@ -1,0 +1,45 @@
+.slide-content-main-description {
+  padding-bottom: 120px;
+  margin-top: 195px;
+  background: $black;
+
+  &__content {
+    position: relative;
+    top: -195px;
+    font-size: 36px;
+    line-height: 50px;
+    text-align: center;
+    padding: 80px 90px;
+    background: #fff;
+
+    &:after {
+      content: '';
+      width: 30px;
+      height: 29px;
+      position: absolute;
+      bottom: 0;
+      left: 50%;
+      margin-left: -15px;
+      background: url('../images/svg/star.svg') no-repeat;
+    }
+  }
+
+  &__triangle {
+    width: 70.711%; // sqrt(2) / 2 * 100%
+    position: absolute;
+    top: 100%;
+    left: 50%;
+    margin-left: -35.356%;
+
+    &::after {
+      content: "";
+      position: absolute;
+      top: 100%;
+      left: 50%;
+      width: 100%;
+      padding-top: 100%;
+      transform: translate(-50%, -50%) scaleY(0.1) rotate(45deg);
+      background: #fff;
+    }
+  }
+}

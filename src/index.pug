@@ -26,14 +26,35 @@ html(lang="en")
                 li
                   a.btn.btn-accent(href="") Registration
             +Slot("content")
-              .container
+              include templates/mixins/slide-content-main-description
+              +slide-content-main-description()
                 p The old Cinderella story? Boring! A new Cinderella story about you? Now, that's cool! The most fashionable and world-renowned brands sponsoring Miss Dukascopy have already prepared a host of gifts for you.
           +slide("blogger")
             +Slot("presentation")
               +slide-presentation("Miss Blogger", "The place where girls reveal themselves")
+              ul.slide-presentation__links-list.js-hidden-on-scroll
+                li
+                  a.btn.btn-simple(href="") Discover more
+                li
+                  a.btn.btn-accent(href="") Join now!
             +Slot("content")
-              .container
-                p fdgdfgk
+              +slide-content-main-description()
+                p You feel the potential blogger? I adore to write articles or shoot video blogs? To show their talent and win the title of "Miss Blogger"!
+                p Miss Blogger - a competition in which you can talk and write about what you want and at the same time to win cash prizes.
+          +slide("model")
+            +Slot("presentation")
+              +slide-presentation("Be a Model", "Strike a Pose and Be a Model!")
+              ul.slide-presentation__links-list.js-hidden-on-scroll
+                li
+                  a.btn.btn-simple(href="") About
+                li
+                  a.btn.btn-simple(href="") Participants
+                li
+                  a.btn.btn-accent(href="") Fill in the form
+            +Slot("content")
+              +slide-content-main-description()
+                p Your face is on the magazine covers, your photos are on billboards, you are on the high fashion catwalks...
+                p Is this a dream? No, this is your future!and at the same time to win cash prizes.
         .js-hidden-on-scroll.main-slider__control.main-slider__prev
           button.main-slider__control-btn.main-slider__prev-btn#slider-prev
             img(src="./images/svg/arrow-left-big.svg?inline")

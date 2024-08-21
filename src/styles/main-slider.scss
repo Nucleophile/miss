@@ -85,6 +85,8 @@
     font-weight: 700;
     letter-spacing: 0.4em;
     text-transform: uppercase;
+    padding-bottom: 90px;
+    margin-bottom: -60px;
   }
 
   &__description {
@@ -122,6 +124,13 @@
   .slide-presentation__wrapper,
   .slide-presentation__fragment {
     @include retina-background("./images/main-slider/blogger", "jpg");
+  }
+}
+
+.slide-model {
+  .slide-presentation__wrapper,
+  .slide-presentation__fragment {
+    @include retina-background("./images/main-slider/model", "jpg");
   }
 }
 

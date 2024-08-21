@@ -6,11 +6,11 @@ export default class Slider {
     const $window = $(window);
     const $document = $(document);
     const $html = $("html");
-    const $body = $("body");
     const windowParams = {
       windowWidth: $window.width(),
       windowHeight: $window.height()
     };
+    this.$body = $("body");
     this.$slider = $slider;
     this.currentSlideNumber = 0;
     this.opacityTransitionDuration = parseFloat($html.css("--main-slider-opacity-trans-dur"));
@@ -24,24 +24,17 @@ export default class Slider {
     this.slidesScrollStartPos = getSlidesScrollStartPos();
     this.slidePresentationToScroll = this.$slider.find(".js-slide-presentation-to-scroll");
 
-    this.autoPlay();
+    const winScrollTop = $window.scrollTop();
+
+    if (winScrollTop > 0) this.hideElementsAndScrollHeading(winScrollTop); // For correct reload in Chrome
 
     $document.on("scroll", () => {
-      const scrollTop = $window.scrollTop();
+      const winScrollTop = $window.scrollTop();
 
-      if (scrollTop > 0) {
-        $body.addClass("js-body--scrolled");
-        this.stopPlaying();
-
-        if (scrollTop > this.slidesScrollStartPos[this.currentSlideNumber]) {
-          this.slidePresentationToScroll.eq(this.currentSlideNumber).css("top", this.slidesScrollStartPos[this.currentSlideNumber] - scrollTop + "px");
-        } else {
-          this.slidePresentationToScroll.eq(this.currentSlideNumber).css("top", "0px");
-        }
+      if (winScrollTop > 0) {
+        this.hideElementsAndScrollHeading(winScrollTop);
       } else {
-        $body.removeClass("js-body--scrolled");
-        this.slidePresentationToScroll.eq(this.currentSlideNumber).css("top", "0px"); // If scroll fast (e. g. press "Home" key) some top value is still remain
-        this.startPlaying();
+        this.showElements();
       }
     });
 
@@ -53,7 +46,7 @@ export default class Slider {
     });
 
     $slider.find("#slider-scroll-down").on("click", () => {
-      $html.animate({scrollTop: windowParams.windowHeight - 30}, 2000);
+      $html.animate({ scrollTop: windowParams.windowHeight - 30 }, 2000);
     });
 
     $slider.find("#slider-prev").on("click", () => {
@@ -63,6 +56,8 @@ export default class Slider {
     $slider.find("#slider-next").on("click", () => {
       sliderControlClickHandler.call(this, this.nextSlide.bind(this));
     });
+
+    this.autoPlay();
 
     function sliderControlClickHandler(switchFunction) {
       if (!this.isOpacityTransitioning) {
@@ -76,7 +71,7 @@ export default class Slider {
       return $slidesHeadings
         .map((_index, el) => {
           const $el = $(el);
-          return windowParams.windowHeight - ($el.offset().top + $el.height()) + $window.scrollTop(); // $window.scrollTop() is required for page refresh
+          return windowParams.windowHeight - ($el.offset().top + $el.innerHeight()) + $window.scrollTop(); // $window.scrollTop() is required for page refresh
         })
         .get();
     }
@@ -126,5 +121,22 @@ export default class Slider {
   stopPlaying() {
     clearTimeout(this.autoplayTimeoutId);
     this.slides[this.currentSlideNumber].revertFragments();
+  }
+
+  hideElementsAndScrollHeading(scrollTop) {
+    this.$body.addClass("js-body--scrolled");
+    this.stopPlaying();
+
+    if (scrollTop > this.slidesScrollStartPos[this.currentSlideNumber]) {
+      this.slidePresentationToScroll.eq(this.currentSlideNumber).css("top", this.slidesScrollStartPos[this.currentSlideNumber] - scrollTop + "px");
+    } else {
+      this.slidePresentationToScroll.eq(this.currentSlideNumber).css("top", "0px");
+    }
+  }
+
+  showElements() {
+    this.$body.removeClass("js-body--scrolled");
+    this.slidePresentationToScroll.eq(this.currentSlideNumber).css("top", "0px"); // If scroll fast (e. g. press "Home" key) some top value is still remain
+    this.startPlaying();
   }
 }
