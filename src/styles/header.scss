@@ -1,3 +1,5 @@
+@use 'sass:math';
+
 .header {
   font-size: 24px;
   line-height: 36px;
@@ -5,7 +7,7 @@
   position: fixed;
   z-index: 2;
   width: 100%;
-  padding: $header-padding-y 50px;
+  padding: var(--header-padding-y) var(--header-padding-x);
   color: #fff;
 
   &__content {
@@ -27,9 +29,9 @@
   }
 
   &__social {
-    width: 68px;
-    height: 68px;
-    border-radius: 68px;
+    width: var(--header-social-size);
+    height: var(--header-social-size);
+    border-radius: var(--header-social-size);
     display: flex;
     align-items: center;
     justify-content: center;
@@ -41,13 +43,18 @@
       background: #fff;
       color: $black;
     }
+
+    @include media(to_laptop) {
+      svg {
+        transform: scale(math.div($header-social-size-xs, $header-social-size));
+      }
+    }
   }
 }
 
 .header-langs {
   &__list {
     list-style: none;
-    margin-top: 8px;
   }
 
   &__btn {
@@ -75,7 +82,7 @@
     display: block;
     padding: 8px 45px;
     border-radius: 52px;
-    margin-bottom: 8px;
+    margin-top: 8px;
     text-decoration: none;
     text-wrap: nowrap; // because of chinese
     color: inherit;

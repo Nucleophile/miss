@@ -9,9 +9,18 @@ $container-max-widths: (
   xxl: 1200px
 );
 
+// Breakpoints
+$tablet: 768px;
+$laptop: 1024px;
+$desktop: 1360px;
+
 // Various dimentions
 $header-social-size: 68px;
+$footer-social-size: 96px;
+$header-social-size-xs: 45px;
+$footer-social-size-xs: 60px;
 $header-padding-y: 28px;
+$header-padding-y-xs: 16px;
 $button-border-width: 2px;
 $button-padding-y: 7px;
 $button-line-height: 32px;

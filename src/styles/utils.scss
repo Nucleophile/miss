@@ -1,0 +1,31 @@
+.visible-xs,
+.visible-sm,
+.visible-lg,
+.visible-xl {
+  display: none;
+}
+
+@include media(laptop) {
+  .hidden-lg {
+    display: none;
+  }
+}
+
+@include media(tablet) {
+  .visible-sm {
+    display: block;
+  }
+
+  .hidden-sm {
+    display: none !important;
+  }
+}
+@include media(mobile) {
+  .visible-xs {
+    display: block;
+  }
+
+  .hidden-xs {
+    display: none !important;
+  }
+}

@@ -1,7 +1,8 @@
+@use 'sass:math';
+
 .footer {
   font-size: 24px;
   position: relative;
-  // z-index: 1;
   text-align: center;
   padding: 50px 0;
   color: $on-black-content;
@@ -16,14 +17,19 @@
     list-style: none;
     display: flex;
     justify-content: center;
-    gap: 60px;
+    flex-wrap: wrap;
+    gap: 30px 60px;
     margin: 50px 0;
+
+    @include media(to_laptop) {
+      gap: 15px 30px;
+    }
   }
 
   &__social {
-    width: 96px;
-    height: 96px;
-    border-radius: 96px;
+    width: var(--footer-social-size);
+    height: var(--footer-social-size);
+    border-radius: var(--footer-social-size);
     display: flex;
     align-items: center;
     justify-content: center;
@@ -35,6 +41,12 @@
     &:hover {
       color: $on-black-content;
       background: #fff;
+    }
+
+    @include media(to_laptop) {
+      svg {
+        transform: scale(math.div($footer-social-size-xs, $footer-social-size));
+      }
     }
   }
 

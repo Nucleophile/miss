@@ -24,6 +24,8 @@ export default class Slider {
     this.slidesScrollStartPos = getSlidesScrollStartPos();
     this.slidePresentationToScroll = this.$slider.find(".js-slide-presentation-to-scroll");
 
+    this.autoPlay();
+
     const winScrollTop = $window.scrollTop();
 
     if (winScrollTop > 0) this.hideElementsAndScrollHeading(winScrollTop); // For correct reload in Chrome
@@ -56,8 +58,6 @@ export default class Slider {
     $slider.find("#slider-next").on("click", () => {
       sliderControlClickHandler.call(this, this.nextSlide.bind(this));
     });
-
-    this.autoPlay();
 
     function sliderControlClickHandler(switchFunction) {
       if (!this.isOpacityTransitioning) {

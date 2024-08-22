@@ -9,3 +9,39 @@
     background-image: url($url + $suffix + "." + $file-type);
   }
 }
+
+@mixin media($device) {
+  @if ($device == mobile) {
+    @media (max-width: #{$tablet - 1px}) {
+      @content;
+    }
+  } @else if ($device == tablet) {
+    @media (min-width: $tablet) and (max-width: #{$laptop - 1px}) {
+      @content;
+    }
+  } @else if ($device == laptop) {
+    @media (min-width: $laptop) and (max-width: #{$desktop - 1px}) {
+      @content;
+    }
+  } @else if ($device == desktop) {
+    @media (min-width: $desktop) {
+      @content;
+    }
+  } @else if ($device == to_desktop) {
+    @media (max-width: #{$desktop - 1px}) {
+      @content;
+    }
+  } @else if ($device == to_laptop) {
+    @media (max-width: #{$laptop - 1px}) {
+      @content;
+    }
+  } @else if ($device == from_tablet) {
+    @media (min-width: $tablet) {
+      @content;
+    }
+  } @else if ($device == from_laptop) {
+    @media (min-width: $laptop) {
+      @content;
+    }
+  }
+}

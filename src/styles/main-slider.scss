@@ -3,21 +3,13 @@
     list-style: none;
   }
 
-  // &__controls {
-  //   position: fixed;
-  //   top: 50%;
-  //   width: 100%;
-  //   z-index: 1;
-  // }
-
   &__control {
     position: fixed;
-    bottom: 50%;
     z-index: 1;
 
     &-btn {
-      width: $control-size;
-      height: $control-size;
+      width: var(--controls-size);
+      height: var(--controls-size);
       display: flex;
       align-items: center;
       justify-content: center;
@@ -35,18 +27,24 @@
     }
   }
 
+  &__prev,
+  &__next {
+    top: 50%;
+    margin-top: calc(var(--controls-size) / -2);
+  }
+
   &__prev {
-    left: 45px;
+    left: var(--controls-x-pos);
   }
 
   &__next {
-    right: 45px;
+    right: var(--controls-x-pos);
   }
 
   &__scroll-down {
-    bottom: 30px;
+    bottom: var(--controls-y-pos);
     left: 50%;
-    margin-left: -$control-size * .5;
+    margin-left: calc(var(--controls-size) / -2);
   }
 
   &__slide {
@@ -81,12 +79,24 @@
 
 .slide {
   &__heading {
-    font-size: 120px;
+    font-size: 34px;
     font-weight: 700;
     letter-spacing: 0.4em;
     text-transform: uppercase;
     padding-bottom: 90px;
     margin-bottom: -70px;
+
+    @include media(from_tablet) {
+      font-size: 60px;
+    }
+
+    @include media(desktop) {
+      font-size: 94px;
+    }
+
+    @media (min-width: 1600px) {
+      font-size: 120px;
+    }
   }
 
   &__description {
@@ -147,7 +157,8 @@
     left: 0;
     width: 100%;
     height: 100%;
-    padding: $header-social-size + 2 * $header-padding-y 0 $header-padding-y;
+    padding: calc(var(--header-social-size) + 2 * var(--header-padding-y)) calc(var(--controls-size) + var(--controls-x-pos) * 2) calc(var(--controls-size) + var(--controls-y-pos) * 2);
+    // padding: val(--controls-size) ;
     color: #fff;
     text-align: center;
     perspective: 400px;

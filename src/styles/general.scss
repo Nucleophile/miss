@@ -9,6 +9,28 @@
 :root {
   --main-slider-opacity-trans-dur: #{$main-slider-opacity-trans-dur};
   --main-slider-trans-dur: #{$main-slider-trans-dur};
+  --header-social-size: #{$header-social-size-xs};
+  --header-padding-y: #{$header-padding-y-xs};
+  --header-padding-x: 0;
+  --footer-social-size: #{$footer-social-size-xs};
+  --controls-size: 50px;
+  --controls-x-pos: 10px;
+  --controls-y-pos: 10px;
+
+  @include media(from_tablet) {
+    
+    
+  }
+
+  @include media(from_laptop) {
+    --header-social-size: #{$header-social-size};
+    --header-padding-y: #{$header-padding-y};
+    --header-padding-x: 50px;
+    --footer-social-size: #{$footer-social-size};
+    --controls-size: 125px;
+    --controls-x-pos: 45px;
+    --controls-y-pos: 30px;
+  }
 }
 
 body {
